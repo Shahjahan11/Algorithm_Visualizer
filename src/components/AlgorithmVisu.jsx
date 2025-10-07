@@ -39,87 +39,71 @@ const AlgorithmVisualizer=()=>
         }
     };
 
-    const bubbleSort=async()=>
-    {
-        setIsSorting(true);
-        let arr=[...array];
-        let len=arr.length;
-        
-        for(let i=0;i<len;i++)
-        {
-            for(let j=0;j<len-i-1;j++)
-            {
-                let bars=document.getElementsByClassName('array-bar');
-                bars[j].style.backgroundColor='#e74c3c';
-                bars[j+1].style.backgroundColor='#e74c3c';
-                await new Promise(resolve=>setTimeout(resolve,speed));
+ 
 
-                if(arr[j]>arr[j+1])
-                {
-                    let tmp=arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=tmp;
-                    setArray([...arr]);
-                }
+const bubbleSort = async () => {
+  setIsSorting(true);
+  let arr = [...array];
+  let len = arr.length;
+  const bars = document.getElementsByClassName('array-bar');
 
-                bars[j].style.backgroundColor='#3498db';
-                bars[j+1].style.backgroundColor='#3498db';
-            }
-            let bars=document.getElementByClassName('array-bar');
-            bars[len-i-1].style.backgroundColor='#2ecc71';
-        }
-        setIsSorting(false);
-    };
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len - i - 1; j++) {
+      bars[j].style.backgroundColor = '#e74c3c';
+      bars[j + 1].style.backgroundColor = '#e74c3c';
+      await new Promise(resolve => setTimeout(resolve, speed));
+
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        setArray([...arr]);
+      }
+
+      bars[j].style.backgroundColor = '#3498db';
+      bars[j + 1].style.backgroundColor = '#3498db';
+    }
+    bars[len - i - 1].style.backgroundColor = '#2ecc71';
+  }
+
+  setIsSorting(false);
+};
 
 
-    const selectionSort=async()=>
-    {
-        setIsSorting(true);
-        let arr=[...array];
-        let len=arr.length;
+const selectionSort = async () => {
+  setIsSorting(true);
+  let arr = [...array];
+  let len = arr.length;
+  const bars = document.getElementsByClassName('array-bar');
 
-        for(let i=0;i<len-1;i++)
-        {
-            let minIndex=i;
-            let bars=document.getElementByClassName('array-bar');
-            bars[minIndex].style.backgroundColor='#9b59b6';
-            
-            await new Promise(resolve=>setTimeout(resolve,speed));
-            for(let j=i+1;j<len;j++)
-            {
-                bars[j].style.backgroundColor='e74c3c';
-                await new Promise(resolve=>setTimeout(resolve,speed/2));
+  for (let i = 0; i < len - 1; i++) {
+    let minIndex = i;
+    bars[minIndex].style.backgroundColor = '#9b59b6';
+    await new Promise(resolve => setTimeout(resolve, speed / 2));
 
-                if(arr[j]<arr[minIndex])
-                {
-                    bars[minIndex].style.backgroundColor='#3498db';
-                    minIndex=j;
-                    bars[minIndex].style.backgroundColor='#9b59b6';
-                    await new Promise(resolve=>setTimeout(resolve,speed/2));
-                }
-                else 
-                {
-                    bars[j].style.backgroundColor='#3498db';
-                }
-            }
+    for (let j = i + 1; j < len; j++) {
+      bars[j].style.backgroundColor = '#f39c12';
+      await new Promise(resolve => setTimeout(resolve, speed / 2));
 
-            if(minIndex!=i)
-            {
-                let tmp=arr[i];
-                arr[i]=arr[minIndex];
-                arr[minIndex]=tmp;
-                setArray([...arr]);
+      if (arr[j] < arr[minIndex]) {
+        bars[minIndex].style.backgroundColor = '#3498db';
+        minIndex = j;
+        bars[minIndex].style.backgroundColor = '#9b59b6';
+      } else {
+        bars[j].style.backgroundColor = '#3498db';
+      }
+    }
 
-                bars[i].style.backgroundColor='#f39c12';
-                bars[minIndex].style.backgroundColor='#f39c12';
-                await new Promise(resolve=>setTimeout(resolve,speed));
-            }
-            bars[i].style.backgroundColor='#2ecc71';
-        }
-        let bars=document.getElementsByClassName('array-bar');
-        bars[len-1]=stylebackgroundColor='#2ecc71';
-        setIsSorting(false);
-    };
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+      setArray([...arr]);
+    }
+
+    bars[i].style.backgroundColor = '#2ecc71';
+  }
+  bars[len - 1].style.backgroundColor = '#2ecc71';
+  setIsSorting(false);
+};
+
+    
 
     const linearSearch=async()=>
     {
